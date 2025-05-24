@@ -17,19 +17,19 @@ def list_todos(request):
 
 @api_view(['POST'])
 def add_todo(request):
-    print("Received POST data:", request.data)  # Debug
+    print("Received POST data:", request.data) 
     
-    # Ensure required fields are present
+   
     data = request.data.copy()
     if 'description' not in data:
-        data['description'] = ""  # Provide default
+        data['description'] = ""  
     
     serializer = TodoSerializer(data=data)
     if serializer.is_valid():
         todo = serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     else:
-        print("Validation errors:", serializer.errors)  # Debug
+        print("Validation errors:", serializer.errors)
         return Response({
             'error': 'Validation failed',
             'details': serializer.errors,
